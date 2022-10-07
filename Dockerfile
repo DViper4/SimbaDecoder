@@ -22,7 +22,7 @@ RUN apt -y update && \
     apt -y install clang make cmake python3-pip git
 
 # Conan
-RUN pip3 install meson ninja conan
+RUN pip3 install meson ninja conan==1.53.0
 RUN conan profile new default --detect && \
     conan profile update settings.compiler.libcxx=libstdc++11 default
 
