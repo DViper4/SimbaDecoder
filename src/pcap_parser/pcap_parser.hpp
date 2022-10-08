@@ -21,12 +21,12 @@ class PcapParser
     ~PcapParser() = default;
 
    public:
-    std::optional<Packet> Next();
+    std::optional<Packet*> Next();
 
    private:
     void ParseGlobalHeader();
 
    private:
     std::ifstream ifs;
-    uint32_t snaplen;
+    Packet packet;
 };

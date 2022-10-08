@@ -32,12 +32,12 @@ void PcapParser::ParseGlobalHeader()
                    "thiszone=[{}], sigfigs=[{}], snaplen=[{}], network=[{}]",
                    pcap.magic_number, pcap.version_major, pcap.version_minor,
                    pcap.thiszone, pcap.sigfigs, pcap.snaplen, pcap.network);
+
+    packet.data.reserve(pcap.snaplen);
 }
 
-std::optional<PcapParser::Packet> PcapParser::Next()
+std::optional<PcapParser::Packet*> PcapParser::Next()
 {
-    Packet packet;
-
     auto cnt = ifs.read(reinterpret_cast<char*>(&packet.header), sizeof(packet.header)).gcount();
     if (cnt != sizeof(packet.header))
     {
@@ -57,5 +57,5 @@ std::optional<PcapParser::Packet> PcapParser::Next()
         throw std::runtime_error("Could not read packet data: not enough bytes");
     }
 
-    return packet;
+    return &packet;
 }

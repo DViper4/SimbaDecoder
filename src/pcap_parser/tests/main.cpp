@@ -1,4 +1,4 @@
-#include "pcap_parser.hpp"
+#include "pcap_parser/pcap_parser.hpp"
 
 #include "logger/logger.hpp"
 
@@ -14,7 +14,7 @@ int main()
             break;
         }
 
-        auto& [header, data] = packet_opt.value();
+        auto& [header, data] = *(packet_opt.value());
 
         ksp::log::Debug("Parsed packet: ts_sec=[{}], ts_usec=[{}], incl_len=[{}], orig_len=[{}]",
                         header.ts_sec, header.ts_usec, header.incl_len, header.incl_len);
