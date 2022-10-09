@@ -50,10 +50,14 @@ int main()
         auto udp = reader.ReadAs<UdpHeader>();
         ++cnt_udp;
 
-        decoder.Decode(reader, [&] (const auto& msg)
+        bool unsupported_msg = true;
+        decoder.Decode(reader, [&](const auto& msg)
         {
             ofs << Format(msg) << "\n\n";
+            unsupported_msg = false;
         });
+
+        ksp::utils::Assert(unsupported_msg || not reader.HasMore());
     }
 
     ksp::utils::Assert(cnt_udp == 3467814, fmt::format("Got {}, should be {}", cnt_udp, 3467814));

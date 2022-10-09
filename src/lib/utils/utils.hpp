@@ -79,7 +79,7 @@ class ByteArrayReader
         ksp::utils::Assert(std::distance(data_cur, data_ref.cend()) >= 0);
     }
 
-    bool More() const
+    bool HasMore() const
     {
         return data_cur != data_ref.cend();
     }

@@ -160,6 +160,7 @@ struct OrderBookSnapshot
         MDFlagsSet md_flags;
         MDEntryType md_entry_type;
     };
+    static_assert(sizeof(Entry) == 49);
 };
 
 #pragma pack(0)

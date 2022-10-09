@@ -37,7 +37,7 @@ class SimbaDecoder
         auto iph = reader.ReadAs<IncrementalPacketHeader>();
         ksp::log::Debug("{}", iph.transact_time);
 
-        while (reader.More())
+        while (reader.HasMore())
         {
             auto sbeh = reader.ReadAs<SBEHeader>();
             ksp::log::Debug("{}, {}, {}, {}",
@@ -96,7 +96,6 @@ class SimbaDecoder
             }
             default:
             {
-                reader.Skip(sbeh.block_length);
                 break;
             }
         }
