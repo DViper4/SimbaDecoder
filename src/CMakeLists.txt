@@ -15,6 +15,6 @@ ksp_conan_run()
 
 add_subdirectory(lib/logger)
 add_subdirectory(lib/utils)
-add_subdirectory(pcap_parser)
+add_subdirectory(pcap)
 add_subdirectory(net)
-add_subdirectory(simba_decoder)
+add_subdirectory(simba)

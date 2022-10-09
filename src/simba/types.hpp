@@ -94,6 +94,12 @@ enum class MDEntryType : char
     EmptyBook = 'J',
 };
 
+struct GroupSize
+{
+    uint16_t block_length;
+    uint8_t num_in_group;
+};
+
 struct OrderUpdate
 {
     static constexpr uint16_t TEMPLATE_ID = 5;
@@ -124,6 +130,36 @@ struct OrderExecution
     uint32_t rtp_seq;
     MDUpdateAction md_update_action;
     MDEntryType md_entry_type;
+};
+static_assert(sizeof(OrderExecution) == 66); // LOL
+
+struct BestPrices
+{
+    static constexpr uint16_t TEMPLATE_ID = 3;
+
+    GroupSize no_md_entries;
+};
+
+struct OrderBookSnapshot
+{
+    static constexpr uint16_t TEMPLATE_ID = 7;
+
+    int32_t security_id;
+    uint32_t last_msg_seq_num_processed;
+    uint32_t rtp_seq;
+    uint32_t exchange_trading_session_id;
+    GroupSize no_md_entries;
+
+    struct Entry
+    {
+        int64_t md_entry_id;
+        uint64_t transact_time;
+        Decimal5NULL md_entry_px;
+        int64_t md_entry_size;
+        int64_t trade_id;
+        MDFlagsSet md_flags;
+        MDEntryType md_entry_type;
+    };
 };
 
 #pragma pack(0)

@@ -52,4 +52,41 @@ class Defer
     F f;
 };
 
+class ByteArrayReader
+{
+   public:
+    ByteArrayReader(const std::vector<uint8_t>& data) : data_ref(data), data_cur(data_ref.cbegin()) {}
+    ~ByteArrayReader() = default;
+
+   public:
+    template <typename T>
+    T ReadAs()
+    {
+        T val;
+
+        // memcpy is done to prevent potential aliasing problems,
+        // compiler may optimize that memcpy away though,
+        // and just do the same thing as reinterpret_cast would do
+        std:memcpy(&val, &*data_cur, sizeof(T));
+        Skip(sizeof(T));
+
+        return val;
+    }
+
+    void Skip(size_t n)
+    {
+        std::advance(data_cur, n);
+        ksp::utils::Assert(std::distance(data_cur, data_ref.cend()) >= 0);
+    }
+
+    bool More() const
+    {
+        return data_cur != data_ref.cend();
+    }
+
+   private:
+    const std::vector<uint8_t>& data_ref;
+    std::vector<uint8_t>::const_iterator data_cur;
+};
+
 }  // namespace ksp::utils
