@@ -32,6 +32,9 @@ std::string Format(const OrderExecution& msg)
                        "    md_entry_id      {},\n"
                        "    md_entry_px      {},\n"
                        "    md_entry_size    {},\n"
+                       "    last_px          {},\n"
+                       "    last_qty         {},\n"
+                       "    trade_id         {},\n"
                        "    md_flags         {},\n"
                        "    security_id      {},\n"
                        "    rtp_seq          {},\n"
@@ -41,6 +44,9 @@ std::string Format(const OrderExecution& msg)
                        msg.md_entry_id,
                        float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent),
                        msg.md_entry_size,
+                       float(msg.last_px.mantissa*msg.last_px.exponent),
+                       msg.last_qty,
+                       msg.trade_id,
                        uint64_t(msg.md_flags),
                        msg.security_id,
                        msg.rtp_seq,
@@ -75,7 +81,7 @@ std::string Format(const OrderBookSnapshot::Entry& msg)
                        "    md_entry_size {},\n"
                        "    trade_id      {},\n"
                        "    md_flags      {},\n"
-                       "    md_entry_type {},\n"
+                       "    md_entry_type {}\n"
                        "}}",
                        msg.md_entry_id,
                        msg.transact_time,

@@ -8,12 +8,8 @@
 class SimbaDecoder
 {
    public:
-    SimbaDecoder() = default;
-    ~SimbaDecoder() = default;
-
-   public:
     template <typename F>
-    void Decode(ksp::utils::ByteArrayReader& reader, F msg_processor)
+    static void Decode(ksp::utils::ByteArrayReader& reader, F msg_processor)
     {
         auto mdph = reader.ReadAs<MarketDataPacketHeader>();
         ksp::log::Debug("{}, {}", mdph.sending_time, mdph.msg_seq_num);
@@ -32,7 +28,7 @@ class SimbaDecoder
 
    private:
     template <typename F>
-    void DecodeIncremental(ksp::utils::ByteArrayReader& reader, F msg_processor)
+    static void DecodeIncremental(ksp::utils::ByteArrayReader& reader, F msg_processor)
     {
         auto iph = reader.ReadAs<IncrementalPacketHeader>();
         ksp::log::Debug("{}", iph.transact_time);
@@ -73,7 +69,7 @@ class SimbaDecoder
     }
 
     template <typename F>
-    void DecodeSnapshot(ksp::utils::ByteArrayReader& reader, F msg_processor)
+    static void DecodeSnapshot(ksp::utils::ByteArrayReader& reader, F msg_processor)
     {
         auto sbeh = reader.ReadAs<SBEHeader>();
         ksp::log::Debug("{}, {}, {}, {}",

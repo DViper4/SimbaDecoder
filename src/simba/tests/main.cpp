@@ -14,7 +14,6 @@ int main()
     PcapParser parser("/workdir/Corvil-13052-1636559040000000000-1636560600000000000.pcap");
 
     std::ofstream ofs("out2.txt");
-    SimbaDecoder decoder;
 
     size_t cnt_udp = 0;
 
@@ -29,7 +28,7 @@ int main()
         auto& [header, data] = *(packet_opt.value());
 
         ksp::log::Debug("Parsed packet: ts_sec=[{}], ts_usec=[{}], incl_len=[{}], orig_len=[{}]",
-                        header.ts_sec, header.ts_usec, header.incl_len, header.incl_len);
+                        header.ts_sec, header.ts_usec, header.incl_len, header.orig_len);
 
         auto reader = ksp::utils::ByteArrayReader(data);
 
@@ -51,7 +50,7 @@ int main()
         ++cnt_udp;
 
         bool unsupported_msg = true;
-        decoder.Decode(reader, [&](const auto& msg)
+        SimbaDecoder::Decode(reader, [&](const auto& msg)
         {
             ofs << Format(msg) << "\n\n";
             unsupported_msg = false;
