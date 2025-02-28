@@ -18,7 +18,7 @@ class PcapParser
 
    public:
     PcapParser(const std::string& filename);
-    ~PcapParser() = default;
+    ~PcapParser();
 
    public:
     std::optional<Packet*> Next();

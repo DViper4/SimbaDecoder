@@ -17,6 +17,11 @@ PcapParser::PcapParser(const std::string& filename)
     ParseGlobalHeader();
 }
 
+PcapParser::~PcapParser()
+{
+    ifs.close();
+}
+
 void PcapParser::ParseGlobalHeader()
 {
     PcapGlobalHeader pcap;

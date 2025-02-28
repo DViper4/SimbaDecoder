@@ -11,10 +11,9 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    PcapParser parser(argv[1]);
-
     ksp::log::load_argv_levels(argc, argv);
 
+    PcapParser parser(argv[1]);
 
     while (true)
     {

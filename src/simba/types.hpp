@@ -101,6 +101,12 @@ struct GroupSize
     uint8_t num_in_group;
 };
 
+struct GroupSize2
+{
+    uint16_t block_length;
+    uint16_t num_in_group;
+};
+
 struct OrderUpdate
 {
     static constexpr uint16_t TEMPLATE_ID = 15;
@@ -136,12 +142,21 @@ struct OrderExecution
 };
 static_assert(sizeof(OrderExecution) == 74);
 
+struct SecurityMassStatus
+{
+    static constexpr uint16_t TEMPLATE_ID = 19;
+
+    GroupSize2 no_md_entries;
+};
+static_assert(sizeof(SecurityMassStatus) == 4);
+
 struct BestPrices
 {
     static constexpr uint16_t TEMPLATE_ID = 14;
-
+    
     GroupSize no_md_entries;
 };
+static_assert(sizeof(BestPrices) == 3);
 
 
 struct OrderBookSnapshot

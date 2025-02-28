@@ -53,6 +53,12 @@ class SimbaDecoder
                     msg_processor(oe);
                     break;
                 }
+                case SecurityMassStatus::TEMPLATE_ID:
+                {
+                    auto no_md_entries = reader.ReadAs<GroupSize2>();
+                    reader.Skip(no_md_entries.block_length * no_md_entries.num_in_group);
+                    break;
+                }
                 case BestPrices::TEMPLATE_ID:
                 {
                     auto no_md_entries = reader.ReadAs<GroupSize>();
