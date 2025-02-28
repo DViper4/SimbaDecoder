@@ -11,9 +11,16 @@
 
 int main(int argc, char *argv[])
 {
-    ksp::log::load_argv_levels(argc, argv);
+    if (argc < 2 || argc > 3)
+    {
+        ksp::log::Critical("./binary [path to pcap file] [log level (optional)]");
+        ksp::log::Critical("example: ./..../2023-10-10.0845-0905.pcap ./bin/simba_decoder_test SPDLOG_LEVEL=info,mylogger=info");
+        return 1;
+    }
 
-    PcapParser parser("/home/oded/dev/pcap_data/ftp.moex.ru/pub/SIMBA/Spectra/prod/pcap/2023-10-10.0845-0905.pcap");
+    PcapParser parser(argv[1]);
+
+    ksp::log::load_argv_levels(argc, argv);
 
     std::ofstream ofs("out2.txt");
 

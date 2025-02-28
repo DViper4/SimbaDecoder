@@ -56,6 +56,7 @@ std::string Format(const OrderExecution& msg)
 
 std::string Format(const OrderBookSnapshot& msg)
 {
+    return "";
     return fmt::format("OrderBookSnapshot\n"
                        "{{\n"
                        "    security_id                 {},\n"
@@ -73,6 +74,7 @@ std::string Format(const OrderBookSnapshot& msg)
 
 std::string Format(const OrderBookSnapshot::Entry& msg)
 {
+    return "";
     if (float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent) > 1000000.0)
         return fmt::format("ODED OrderBookSnapshotEntry\n"
             "{{\n"

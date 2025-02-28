@@ -127,13 +127,22 @@ struct OrderExecution
     Decimal5 last_px;
     int64_t last_qty;
     int64_t trade_id;
-    uint64_t md_flags;
+    MDFlagsSet md_flags;
+    MDFlagsSet md_flags_2;
     int32_t security_id;
     uint32_t rtp_seq;
     MDUpdateAction md_update_action;
     MDEntryType md_entry_type;
 };
-static_assert(sizeof(OrderExecution) == 66);
+static_assert(sizeof(OrderExecution) == 74);
+
+struct BestPrices
+{
+    static constexpr uint16_t TEMPLATE_ID = 14;
+
+    GroupSize no_md_entries;
+};
+
 
 struct OrderBookSnapshot
 {
