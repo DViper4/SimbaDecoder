@@ -10,7 +10,7 @@ $ docker compose up -d
 ```bash
 $ pip3 install meson ninja conan==1.53.0
 $ conan profile new default --detect && \
-  conan profile update settings.compiler.libcxx=libstdc++11 default
+  conan profile update settings.compiler.libcxx=libstdc++17 default
 ```
 
 ## Building
