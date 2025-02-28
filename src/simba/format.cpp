@@ -56,7 +56,6 @@ std::string Format(const OrderExecution& msg)
 
 std::string Format(const OrderBookSnapshot& msg)
 {
-    return "";
     return fmt::format("OrderBookSnapshot\n"
                        "{{\n"
                        "    security_id                 {},\n"
@@ -74,42 +73,21 @@ std::string Format(const OrderBookSnapshot& msg)
 
 std::string Format(const OrderBookSnapshot::Entry& msg)
 {
-    return "";
-    if (float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent) > 1000000.0)
-        return fmt::format("ODED OrderBookSnapshotEntry\n"
-            "{{\n"
-            "    md_entry_id   {},\n"
-            "    transact_time {},\n"
-            "    md_entry_px   {},\n"
-            "    md_entry_size {},\n"
-            "    trade_id      {},\n"
-            "    md_flags      {},\n"
-            "    md_entry_type {}\n"
-            "}}",
-            msg.md_entry_id,
-            msg.transact_time,
-            float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent),
-            msg.md_entry_size,
-            msg.trade_id,
-            uint64_t(msg.md_flags),
-            char(msg.md_entry_type));
-
-    else
-        return fmt::format("OrderBookSnapshotEntry\n"
-                        "{{\n"
-                        "    md_entry_id   {},\n"
-                        "    transact_time {},\n"
-                        "    md_entry_px   {},\n"
-                        "    md_entry_size {},\n"
-                        "    trade_id      {},\n"
-                        "    md_flags      {},\n"
-                        "    md_entry_type {}\n"
-                        "}}",
-                        msg.md_entry_id,
-                        msg.transact_time,
-                        float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent),
-                        msg.md_entry_size,
-                        msg.trade_id,
-                        uint64_t(msg.md_flags),
-                        char(msg.md_entry_type));
+    return fmt::format("OrderBookSnapshotEntry\n"
+                    "{{\n"
+                    "    md_entry_id   {},\n"
+                    "    transact_time {},\n"
+                    "    md_entry_px   {},\n"
+                    "    md_entry_size {},\n"
+                    "    trade_id      {},\n"
+                    "    md_flags      {},\n"
+                    "    md_entry_type {}\n"
+                    "}}",
+                    msg.md_entry_id,
+                    msg.transact_time,
+                    float(msg.md_entry_px.mantissa*msg.md_entry_px.exponent),
+                    msg.md_entry_size,
+                    msg.trade_id,
+                    uint64_t(msg.md_flags),
+                    char(msg.md_entry_type));
 }
