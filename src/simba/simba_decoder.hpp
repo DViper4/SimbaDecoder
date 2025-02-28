@@ -14,6 +14,11 @@ class SimbaDecoder
         auto mdph = reader.ReadAs<MarketDataPacketHeader>();
         ksp::log::Debug("{}, {}", mdph.sending_time, mdph.msg_seq_num);
 
+        // if (mdph.IsFragmented())
+        // {
+        //     throw;
+        // }
+
         if (mdph.IsIncremental())
         {
             DecodeIncremental(reader, msg_processor);
@@ -31,36 +36,33 @@ class SimbaDecoder
     static void DecodeIncremental(ksp::utils::ByteArrayReader& reader, F msg_processor)
     {
         auto iph = reader.ReadAs<IncrementalPacketHeader>();
-        ksp::log::Debug("{}", iph.transact_time);
+        ksp::log::Info("DecodeIncremental {}", iph.transact_time);
 
         while (reader.HasMore())
         {
             auto sbeh = reader.ReadAs<SBEHeader>();
-            ksp::log::Debug("{}, {}, {}, {}",
+            ksp::log::Info("DecodeIncremental {}, {}, {}, {}",
                             sbeh.schema_id, sbeh.template_id, sbeh.version, sbeh.block_length);
 
-            switch (sbeh.template_id)
+            switch (sbeh.template_id && reader.HasMore())
             {
                 case OrderUpdate::TEMPLATE_ID:
                 {
+                    ksp::log::Info("OrderUpdate");
                     auto ou = reader.ReadAs<OrderUpdate>();
                     msg_processor(ou);
                     break;
                 }
                 case OrderExecution::TEMPLATE_ID:
                 {
+                    ksp::log::Info("OrderExecution");
                     auto oe = reader.ReadAs<OrderExecution>();
                     msg_processor(oe);
                     break;
                 }
-                case BestPrices::TEMPLATE_ID:
-                {
-                    auto no_md_entries = reader.ReadAs<GroupSize>();
-                    reader.Skip(no_md_entries.block_length * no_md_entries.num_in_group);
-                    break;
-                }
                 default:
                 {
+                    ksp::log::Info("Skipping {}", sbeh.block_length);
                     reader.Skip(sbeh.block_length);
                     break;
                 }

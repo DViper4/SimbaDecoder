@@ -1,9 +1,15 @@
 #pragma once
 
 #include <spdlog/spdlog.h>
+#include <spdlog/cfg/argv.h>
 
 namespace ksp::log
 {
+
+inline void load_argv_levels(int argc, char *argv[])
+{
+    spdlog::cfg::load_argv_levels(argc, argv);
+}
 
 inline void Debug(const std::string& msg)
 {

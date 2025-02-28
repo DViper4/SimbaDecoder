@@ -32,6 +32,7 @@ enum class MsgFlagsSet : uint16_t
 struct MarketDataPacketHeader
 {
     bool IsIncremental() const { return msg_flags & 0x8; }
+    bool IsFragmented() const { return not (msg_flags & 0x1); }
 
     uint32_t msg_seq_num;
     uint16_t msg_size;
@@ -102,22 +103,23 @@ struct GroupSize
 
 struct OrderUpdate
 {
-    static constexpr uint16_t TEMPLATE_ID = 5;
+    static constexpr uint16_t TEMPLATE_ID = 15;
 
     int64_t md_entry_id;
     Decimal5 md_entry_px;
     int64_t md_entry_size;
     MDFlagsSet md_flags;
+    MDFlagsSet md_flags_2;
     int32_t security_id;
     uint32_t rtp_seq;
     MDUpdateAction md_update_action;
     MDEntryType md_entry_type;
 };
-static_assert(sizeof(OrderUpdate) == 42);
+static_assert(sizeof(OrderUpdate) == 50);
 
 struct OrderExecution
 {
-    static constexpr uint16_t TEMPLATE_ID = 6;
+    static constexpr uint16_t TEMPLATE_ID = 16;
 
     int64_t md_entry_id;
     Decimal5NULL md_entry_px;
@@ -131,18 +133,11 @@ struct OrderExecution
     MDUpdateAction md_update_action;
     MDEntryType md_entry_type;
 };
-static_assert(sizeof(OrderExecution) == 66); // LOL
-
-struct BestPrices
-{
-    static constexpr uint16_t TEMPLATE_ID = 3;
-
-    GroupSize no_md_entries;
-};
+static_assert(sizeof(OrderExecution) == 66);
 
 struct OrderBookSnapshot
 {
-    static constexpr uint16_t TEMPLATE_ID = 7;
+    static constexpr uint16_t TEMPLATE_ID = 17;
 
     int32_t security_id;
     uint32_t last_msg_seq_num_processed;
@@ -158,9 +153,10 @@ struct OrderBookSnapshot
         int64_t md_entry_size;
         int64_t trade_id;
         MDFlagsSet md_flags;
+        MDFlagsSet md_flags_2;
         MDEntryType md_entry_type;
     };
-    static_assert(sizeof(Entry) == 49);
+    static_assert(sizeof(Entry) == 57);
 };
 
 #pragma pack(0)

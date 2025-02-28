@@ -2,9 +2,11 @@
 
 #include "logger/logger.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {
-    PcapParser parser("/workdir/Corvil-13052-1636559040000000000-1636560600000000000.pcap");
+    ksp::log::load_argv_levels(argc, argv);
+
+    PcapParser parser("/home/oded/dev/pcap_eqivalent/2023-10-09.2349-2355.pcap");
 
     while (true)
     {

@@ -9,9 +9,11 @@
 #include "logger/logger.hpp"
 #include "utils/utils.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {
-    PcapParser parser("/workdir/Corvil-13052-1636559040000000000-1636560600000000000.pcap");
+    ksp::log::load_argv_levels(argc, argv);
+
+    PcapParser parser("/home/oded/dev/pcap_data/ftp.moex.ru/pub/SIMBA/Spectra/prod/pcap/2023-10-10.0845-0905.pcap");
 
     std::ofstream ofs("out2.txt");
 
@@ -52,7 +54,7 @@ int main()
         bool unsupported_msg = true;
         SimbaDecoder::Decode(reader, [&](const auto& msg)
         {
-            ofs << Format(msg) << "\n\n";
+            std::cout << Format(msg) << "\n\n";
             unsupported_msg = false;
         });
 
