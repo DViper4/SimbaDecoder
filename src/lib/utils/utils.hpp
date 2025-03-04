@@ -67,7 +67,7 @@ class ByteArrayReader
         // memcpy is done to prevent potential aliasing problems,
         // compiler may optimize that memcpy away though,
         // and just do the same thing as reinterpret_cast would do
-        std:memcpy(&val, &*data_cur, sizeof(T));
+        std::memcpy(&val, &*data_cur, sizeof(T));
         Skip(sizeof(T));
 
         return val;
