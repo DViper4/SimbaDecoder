@@ -1,0 +1,14 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/oded/dev/SimbaDecoder/build/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/lib/logger/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/lib/utils/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/pcap/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/pcap/tests/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/net/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/simba/cmake_install.cmake",
+		"/home/oded/dev/SimbaDecoder/build/simba/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

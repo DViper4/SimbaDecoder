@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libnet.a CMakeFiles/net.dir/ethernet.cpp.o CMakeFiles/net.dir/udp.cpp.o
+/usr/bin/ranlib ../lib/libnet.a

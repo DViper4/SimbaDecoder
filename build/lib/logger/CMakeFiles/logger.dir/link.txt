@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../liblogger.a
+/usr/bin/ranlib ../liblogger.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libsimba_decoder.a CMakeFiles/simba_decoder.dir/format.cpp.o CMakeFiles/simba_decoder.dir/simba_decoder.cpp.o
+/usr/bin/ranlib ../lib/libsimba_decoder.a
